@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pi_dois/pages/auth/sign_in_screen.dart';
+import 'package:pi_dois/pages/base/base_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +15,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white70,
+        ),
         primaryColor: Colors.black,
-        scaffoldBackgroundColor: const Color(0xffecdbc9),
+        scaffoldBackgroundColor: const Color(0xfffafafa), //0xffecdbc9
       ),
       debugShowCheckedModeBanner: false,
-      home:  SignInScreen(),
+      home:  BaseScreen(),
     );
   }
 }
