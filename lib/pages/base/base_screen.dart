@@ -9,12 +9,13 @@ class BaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(title: Text('Amour Amour',),),
+      appBar:  AppBar(title: const Text('Amour Amour',),),
       body: Orders(),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: MenuWidget(),
       ),
     );
+
   }
   }
 
