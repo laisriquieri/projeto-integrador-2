@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pi_dois/models/costumer_model.dart';
+import 'package:pi_dois/pages/costumers/new_costumers.dart';
 import 'package:pi_dois/services/costumer_service.dart';
 
 class CostumersScreen extends StatefulWidget {
@@ -94,7 +95,11 @@ class _CostumersScreenState extends State<CostumersScreen> {
                               borderRadius: BorderRadius.circular(35),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
+                              return NewCostumerScreen();
+                            }),);
+                          },
                           child: const Text(
                             "Novo Cliente",
                             style:

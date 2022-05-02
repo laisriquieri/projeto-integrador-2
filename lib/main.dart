@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pi_dois/pages/auth/sign_in_screen.dart';
 import 'package:pi_dois/pages/base/base_screen.dart';
 
 void main() {
