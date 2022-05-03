@@ -15,7 +15,7 @@ class BaseDefault extends StatelessWidget {
         title: Image.asset('assets/logo-preto-amour-certo.png', fit: BoxFit.contain, height: 72,),
         toolbarHeight: 88,
       ),
-      body: NewCostumer(),
+      body: NewCostumerScreen(),
       drawer: Drawer(
         child: MenuWidget(),
       ),
