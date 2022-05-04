@@ -49,12 +49,13 @@ class _NewCostumerState extends State<NewCostumer> {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                hintText: 'Nome',
+                hintText: 'Nome do Cliente',
               ),
               onSubmitted: (String str) {
                 setState(() {
                   result = str;
                 });
+                Text(result);
               }),
         ),
       ),
