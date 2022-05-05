@@ -26,8 +26,6 @@ class _NewCostumerScreenState extends State<NewCostumerScreen> {
 class NewCostumer extends StatefulWidget {
   NewCostumer({Key? key}) : super(key: key);
 
-  String result = "";
-
   @override
   State<NewCostumer> createState() => _NewCostumerState();
 }
