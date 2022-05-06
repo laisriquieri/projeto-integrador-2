@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pi_dois/pages/costumers/costumers.dart';
+import 'package:pi_dois/pages/costumers/new_costumers.dart';
 import '../home/componets/menu_widget.dart';
 
-class BaseScreen extends StatelessWidget {
-  const BaseScreen({Key? key}) : super(key: key);
+class BaseDefault extends StatelessWidget {
+  const BaseDefault({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class BaseScreen extends StatelessWidget {
         title: Image.asset('assets/logo-preto-amour-certo.png', fit: BoxFit.contain, height: 72,),
         toolbarHeight: 88,
       ),
-      body: CostumersScreen(),
+      body: NewCostumerScreen(),
       drawer: Drawer(
         child: MenuWidget(),
       ),
