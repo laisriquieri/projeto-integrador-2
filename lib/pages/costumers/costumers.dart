@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pi_dois/models/costumer_model.dart';
 import 'package:pi_dois/pages/costumers/new_costumers.dart';
+import 'package:pi_dois/pages/home/componets/menu_widget.dart';
 import 'package:pi_dois/services/costumer_service.dart';
 
 class CostumersScreen extends StatefulWidget {
@@ -26,6 +27,8 @@ class _CostumersScreenState extends State<CostumersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Image.asset('assets/logo-preto-amour-certo.png', fit: BoxFit.contain, height: 72,),),
+      drawer: MenuWidget(),
       body: FutureBuilder<List<CostumerModel>>(
         future: costumerList,
         builder: (context, snapshot) {
@@ -96,9 +99,7 @@ class _CostumersScreenState extends State<CostumersScreen> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-                              return NewCostumerScreen();
-                            }),);
+                            Navigator.of(context).pushNamed('/new-costumer');
                           },
                           child: const Text(
                             "Novo Cliente",
