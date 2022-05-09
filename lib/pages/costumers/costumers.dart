@@ -27,8 +27,14 @@ class _CostumersScreenState extends State<CostumersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Image.asset('assets/logo-preto-amour-certo.png', fit: BoxFit.contain, height: 72,),),
-      drawer: MenuWidget(),
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/logo-preto-amour-certo.png',
+          fit: BoxFit.contain,
+          height: 72,
+        ),
+      ),
+      drawer: const MenuWidget(),
       body: FutureBuilder<List<CostumerModel>>(
         future: costumerList,
         builder: (context, snapshot) {
@@ -36,7 +42,7 @@ class _CostumersScreenState extends State<CostumersScreen> {
             return Column(
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(250, 60, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(250, 60, 140, 0),
                   height: 350,
                   width: 800,
                   decoration: BoxDecoration(
@@ -48,7 +54,7 @@ class _CostumersScreenState extends State<CostumersScreen> {
                       var costumer =
                           (snapshot.data as List<CostumerModel>)[index];
                       return Container(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
@@ -58,19 +64,19 @@ class _CostumersScreenState extends State<CostumersScreen> {
                                 padding: const EdgeInsets.only(right: 20),
                                 child: Text(
                                   costumer.id.toString(),
-                                  style: TextStyle(),
+                                  style: const TextStyle(),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(right: 60),
                                 child: Text(
                                   costumer.name,
-                                  style: TextStyle(),
+                                  style: const TextStyle(),
                                 ),
                               ),
                               Text(
                                 costumer.cpf,
-                                style: TextStyle(),
+                                style: const TextStyle(),
                               ),
                             ],
                           ),
@@ -78,7 +84,7 @@ class _CostumersScreenState extends State<CostumersScreen> {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return Divider();
+                      return const Divider();
                     },
                     itemCount: (snapshot.data as List<CostumerModel>).length,
                   ),
@@ -92,8 +98,8 @@ class _CostumersScreenState extends State<CostumersScreen> {
                         bottom: 40,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size.square(55),
-                            primary: Color(0xffECDBC9),
+                            minimumSize: const Size.square(55),
+                            primary: const Color(0xffECDBC9),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(35),
                             ),
@@ -103,13 +109,14 @@ class _CostumersScreenState extends State<CostumersScreen> {
                           },
                           child: const Text(
                             "Novo Cliente",
-                            style:
-                            TextStyle(fontSize: 18, color: Color(0xff707070)),
+                            style: TextStyle(
+                                fontSize: 18, color: Color(0xff707070)),
                           ),
                         ),
                       )
                     ],
-                  ),)
+                  ),
+                )
               ],
             );
           } else if (snapshot.hasError) {

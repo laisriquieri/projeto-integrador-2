@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         '/new-costumer': (context) => NewCostumerScreen(),
       },
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.purple,
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(color: Color(0xff707070), size: 40),
           backgroundColor: Colors.transparent,
