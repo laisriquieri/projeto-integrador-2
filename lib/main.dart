@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pi_dois/pages/auth/sign_in_screen.dart';
 import 'package:pi_dois/pages/base/base_screen.dart';
 import 'package:pi_dois/pages/costumers/costumers.dart';
 import 'package:pi_dois/pages/costumers/new_costumers.dart';
@@ -17,12 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Amour Amour',
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const Orders(),
         '/new-orders': (context) => const NewOrder(),
         '/costumers': (context) => const CostumersScreen(),
         '/new-costumer': (context) => NewCostumerScreen(),
+        '/login': (context) => SignInScreen(),
       },
       theme: ThemeData(
         primarySwatch: Colors.purple,

@@ -4,16 +4,22 @@ import 'package:pi_dois/pages/base/base_screen.dart';
 
 import '../home/componets/custom_text_field.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   SignInScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffecdbc9),
       body: Center(
-        child:
-        SingleChildScrollView(
+        child: SingleChildScrollView(
           child: SizedBox(
             height: 540,
             width: 440,
@@ -22,13 +28,14 @@ class SignInScreen extends StatelessWidget {
                 SizedBox(
                   height: 95,
                   width: 155,
-                  child: Image.asset('assets/logo-preto-amour-certo.png', fit: BoxFit.fill,),
+                  child: Image.asset(
+                    'assets/logo-preto-amour-certo.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
-
                 SizedBox(
                   height: 50,
                 ),
-
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -42,11 +49,14 @@ class SignInScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-
                         //Email
-                        const CustomTextField(
+                        CustomTextField(
+                          controller: _emailController,
                           icon: Icons.email,
                           label: "Email",
+                          decoration: InputDecoration(
+                            hintText: 'Digite o E-mail',
+                          ),
                         ),
                         //Senha
                         const CustomTextField(
@@ -150,7 +160,7 @@ class SignInScreen extends StatelessWidget {
                             child: const Text(
                               "Criar Conta",
                               style:
-                              TextStyle(fontSize: 18, color: Colors.black),
+                                  TextStyle(fontSize: 18, color: Colors.black),
                             ),
                           ),
                         ),
