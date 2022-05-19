@@ -12,10 +12,14 @@ class BaseScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: Color(0xff707070), size: 40),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Image.asset('assets/logo-preto-amour-certo.png', fit: BoxFit.contain, height: 72,),
+        title: Image.asset(
+          'assets/logo-preto-amour-certo.png',
+          fit: BoxFit.contain,
+          height: 72,
+        ),
         toolbarHeight: 88,
       ),
-      body: CostumersScreen(),
+      //body: CostumersScreen(),
       drawer: Drawer(
         child: MenuWidget(),
       ),
