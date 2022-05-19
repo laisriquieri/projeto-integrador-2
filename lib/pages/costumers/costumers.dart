@@ -1,9 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pi_dois/models/costumer_model.dart';
-import 'package:pi_dois/pages/costumers/new_costumers.dart';
 import 'package:pi_dois/pages/home/componets/menu_widget.dart';
 import 'package:pi_dois/services/costumer_service.dart';
 
