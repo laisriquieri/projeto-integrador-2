@@ -1,5 +1,5 @@
 class Api {
-  static String URLProd = 'https://mocki.io/v1';
+  static String URLProd = 'https://amouramour-api.herokuapp.com/';
 
   String urlBase() {
     return URLProd;

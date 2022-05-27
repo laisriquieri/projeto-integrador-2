@@ -2,14 +2,15 @@ class CostumerModel {
   int id;
   String name;
   String cpf;
+  String birthDate;
   String phone;
   String email;
-  int zipcode;
+  String zipcode;
   String street;
   String district;
   String city;
   String state;
-  int number;
+  String? number;
   String? complement;
   String? observation;
 
@@ -17,6 +18,7 @@ class CostumerModel {
     required this.id,
     required this.name,
     required this.cpf,
+    required this.birthDate,
     required this.phone,
     required this.email,
     required this.zipcode,
@@ -24,26 +26,38 @@ class CostumerModel {
     required this.district,
     required this.city,
     required this.state,
-    required this.number,
+    this.number,
     this.complement,
     this.observation,
   });
 
-  factory CostumerModel.fromJSON(Map<String, dynamic> parsedJson) {
+  factory CostumerModel.fromJson(Map<String, dynamic> json) {
     return CostumerModel(
-      id: parsedJson['id'],
-      name: parsedJson['name'],
-      phone: parsedJson['phone'],
-      email: parsedJson['email'],
-      cpf: parsedJson['cpf'],
-      zipcode: parsedJson['zipcode'],
-      street: parsedJson['street'],
-      district: parsedJson['district'],
-      city: parsedJson['city'],
-      state: parsedJson['state'],
-      number: parsedJson['number'],
-      complement: parsedJson['complement'],
-      observation: parsedJson['observation'],
+      id: json['id'],
+      name: json['nome'],
+      cpf: json['cpf_cnpj'],
+      birthDate: json['data_nascimento'],
+      phone: json['telefone'],
+      email: json['email'],
+      zipcode: json['cep'],
+      street: json['logradouro'],
+      district: json['bairro'],
+      city: json['cidade'],
+      state: json['uf'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nome': name,
+        'cpf_cnpj': cpf,
+        'data_nasciento': birthDate,
+        'telefone': phone,
+        'email': email,
+        'cep': zipcode,
+        'logradouro': street,
+        'bairro': district,
+        'cidade': city,
+        'uf': state
+      };
 }

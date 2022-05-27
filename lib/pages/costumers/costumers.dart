@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pi_dois/models/costumer_model.dart';
+import 'package:pi_dois/pages/costumers/costumer_detail.dart';
 import 'package:pi_dois/pages/home/componets/menu_widget.dart';
+import 'package:pi_dois/routes/costumer_routes_arguments.dart';
 import 'package:pi_dois/services/costumer_service.dart';
 
 class CostumersScreen extends StatefulWidget {
@@ -53,28 +55,39 @@ class _CostumersScreenState extends State<CostumersScreen> {
                         padding: const EdgeInsets.all(5),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 20),
-                                child: Text(
-                                  costumer.id.toString(),
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/constumers-detail',
+                                arguments:
+                                    CostumerArgumens(costumer.id.toString()),
+                              );
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Text(
+                                    costumer.id.toString(),
+                                    style: const TextStyle(),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 60),
+                                  child: Text(
+                                    costumer.name,
+                                    style: const TextStyle(),
+                                  ),
+                                ),
+                                Text(
+                                  costumer.cpf,
                                   style: const TextStyle(),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 60),
-                                child: Text(
-                                  costumer.name,
-                                  style: const TextStyle(),
-                                ),
-                              ),
-                              Text(
-                                costumer.cpf,
-                                style: const TextStyle(),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );
