@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pi_dois/models/costumer_model.dart';
 import 'package:pi_dois/pages/costumers/costumers.dart';
 import 'package:pi_dois/pages/home/componets/custom_text_field.dart';
+import 'package:pi_dois/services/costumer_service.dart';
 
 class NewCostumerScreen extends StatefulWidget {
   NewCostumerScreen({Key? key}) : super(key: key);
@@ -10,8 +12,13 @@ class NewCostumerScreen extends StatefulWidget {
 }
 
 class _NewCostumerScreenState extends State<NewCostumerScreen> {
+  CostumerService costumerService = CostumerService();
+  bool isCreating = false;
+
+  final _typeController = TextEditingController();
   final _nameController = TextEditingController();
   final _cpfController = TextEditingController();
+  final _birthDateController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _zipcodeController = TextEditingController();
@@ -22,6 +29,12 @@ class _NewCostumerScreenState extends State<NewCostumerScreen> {
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
   final _observationController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +78,19 @@ class _NewCostumerScreenState extends State<NewCostumerScreen> {
                   Positioned(
                     top: 10,
                     bottom: 80,
+                    left: 10,
+                    right: 380,
+                    child: CustomTextField(
+                      controller: _typeController,
+                      label: "Tipo",
+                      decoration: InputDecoration(
+                        hintText: 'Ex: 1',
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    bottom: 80,
                     left: 420,
                     right: 10,
                     child: CustomTextField(
@@ -72,6 +98,19 @@ class _NewCostumerScreenState extends State<NewCostumerScreen> {
                       label: "CPF",
                       decoration: InputDecoration(
                         hintText: 'Ex: Robert Downey Junior',
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    bottom: 80,
+                    left: 420,
+                    right: 10,
+                    child: CustomTextField(
+                      controller: _birthDateController,
+                      label: "Data de Nascimento",
+                      decoration: InputDecoration(
+                        hintText: 'Ex: 10/10/2000',
                       ),
                     ),
                   ),
@@ -210,24 +249,69 @@ class _NewCostumerScreenState extends State<NewCostumerScreen> {
                     left: 280,
                     right: 280,
                     bottom: 25,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.square(55),
-                        primary: const Color(0xffECDBC9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/costumers');
-                      },
-                      child: const Text(
-                        "Salvar",
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xff707070)),
-                      ),
-                    ),
-                  )
+                    child: isCreating
+                        ? CircularProgressIndicator()
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.square(55),
+                              primary: const Color(0xffECDBC9),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                            ),
+                            onPressed: () async {
+                              setState(() {
+                                isCreating = true;
+                              });
+
+                              if (_typeController.text != '' &&
+                                  _nameController.text != '' &&
+                                  _birthDateController != '' &&
+                                  _cpfController.text != '' &&
+                                  _phoneController.text != '' &&
+                                  _emailController.text != '' &&
+                                  _zipcodeController.text != '' &&
+                                  _streetController.text != '' &&
+                                  _numberController.text != '' &&
+                                  _districtController.text != '' &&
+                                  _complementController.text != '' &&
+                                  _cityController.text != '' &&
+                                  _stateController.text != '' &&
+                                  _observationController.text != '') {
+                                CostumerModel costumerModel = CostumerModel(
+                                    id: null,
+                                    name: _nameController.text,
+                                    type: int.parse(_typeController.text),
+                                    cpf: _cpfController.text,
+                                    birthDate: _birthDateController.text,
+                                    phone: _phoneController.text,
+                                    email: _emailController.text,
+                                    zipcode: _zipcodeController.text,
+                                    street: _streetController.text,
+                                    district: _districtController.text,
+                                    city: _cityController.text,
+                                    state: _stateController.text);
+
+                                CostumerModel? costumerCreate =
+                                    await costumerService.createCostumer(
+                                        costumer: costumerModel);
+
+                                if (costumerCreate != null) {
+                                  print(costumerCreate);
+                                }
+                              }
+                              setState(() {
+                                isCreating = false;
+                                Navigator.pushNamed(context, '/costumers');
+                              });
+                            },
+                            child: const Text(
+                              "Salvar",
+                              style: TextStyle(
+                                  fontSize: 18, color: Color(0xff707070)),
+                            ),
+                          ),
+                  ),
                 ],
               ),
             ),

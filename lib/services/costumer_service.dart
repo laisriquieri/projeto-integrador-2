@@ -37,4 +37,21 @@ class CostumerService {
       throw Exception("Cliente não encontrado $e");
     }
   }
+
+  Future<CostumerModel?> createCostumer(
+      {required CostumerModel costumer}) async {
+    CostumerModel? costumerCreate;
+    try {
+      Response response = await Dio().post(
+        url + pathUrl,
+        data: costumer.toJson(),
+      );
+      print('Usuário criado: ${response.data}');
+      costumerCreate = CostumerModel.fromJson(response.data);
+    } catch (e) {
+      print('Erro ao criar usuário: $e');
+    }
+
+    return costumerCreate;
+  }
 }

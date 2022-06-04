@@ -1,8 +1,9 @@
 class CostumerModel {
-  int id;
+  int? id;
   String name;
+  int type;
   String cpf;
-  String birthDate;
+  String? birthDate;
   String phone;
   String email;
   String zipcode;
@@ -15,10 +16,11 @@ class CostumerModel {
   String? observation;
 
   CostumerModel({
-    required this.id,
+    this.id,
     required this.name,
+    required this.type,
     required this.cpf,
-    required this.birthDate,
+    this.birthDate,
     required this.phone,
     required this.email,
     required this.zipcode,
@@ -35,13 +37,17 @@ class CostumerModel {
     return CostumerModel(
       id: json['id'],
       name: json['nome'],
+      type: json['tipo'],
       cpf: json['cpf_cnpj'],
       birthDate: json['data_nascimento'],
       phone: json['telefone'],
       email: json['email'],
       zipcode: json['cep'],
       street: json['logradouro'],
+      number: json['numero'],
       district: json['bairro'],
+      complement: json['complemento'],
+      observation: json['observacoes'],
       city: json['cidade'],
       state: json['uf'],
     );
@@ -50,14 +56,18 @@ class CostumerModel {
   Map<String, dynamic> toJson() => {
         'id': id,
         'nome': name,
+        'tipo': type,
         'cpf_cnpj': cpf,
         'data_nasciento': birthDate,
         'telefone': phone,
         'email': email,
         'cep': zipcode,
         'logradouro': street,
+        'numero': number,
         'bairro': district,
+        'complemento': complement,
         'cidade': city,
-        'uf': state
+        'uf': state,
+        'observacoes': observation
       };
 }
