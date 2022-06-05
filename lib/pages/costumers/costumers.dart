@@ -15,6 +15,7 @@ class CostumersScreen extends StatefulWidget {
 class _CostumersScreenState extends State<CostumersScreen> {
   CostumerService costumerService = CostumerService();
   late Future<List<CostumerModel>> costumerList;
+  bool isDeleting = false;
 
   @override
   void initState() {
@@ -86,6 +87,30 @@ class _CostumersScreenState extends State<CostumersScreen> {
                                   costumer.cpf,
                                   style: const TextStyle(),
                                 ),
+                                new Spacer(),
+                                isDeleting
+                                    ? CircularProgressIndicator()
+                                    : IconButton(
+                                        onPressed: () async {
+                                          setState(() {
+                                            isDeleting = true;
+                                          });
+                                          costumerService.deleteCostumer(
+                                              costumer.id.toString());
+                                          setState(() {
+                                            isDeleting = false;
+                                            costumerList = costumerService
+                                                .getAllCostumers();
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        super.widget));
+                                          });
+                                        },
+                                        iconSize: 25,
+                                        icon: const Icon(Icons.delete))
                               ],
                             ),
                           ),

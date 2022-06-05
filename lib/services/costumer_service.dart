@@ -50,6 +50,7 @@ class CostumerService {
       costumerCreate = CostumerModel.fromJson(response.data);
     } catch (e) {
       print('Erro ao criar usuário: $e');
+      throw Exception("Erro ao cadastrar cliente $e");
     }
 
     return costumerCreate;
@@ -66,9 +67,18 @@ class CostumerService {
       print('Usuário criado: ${response.data}');
       costumerCreate = CostumerModel.fromJson(response.data);
     } catch (e) {
-      print('Erro ao editar o usuário: $e');
+      print('Erro ao editar o editar: $e');
+      throw Exception("Erro ao editar cliente $e");
     }
 
     return costumerCreate;
+  }
+
+  Future<void> deleteCostumer(String id) async {
+    try {
+      await Dio().delete(url + pathUrl + '/' + id);
+    } catch (e) {
+      throw Exception("Erro ao deletar cliente $e");
+    }
   }
 }
