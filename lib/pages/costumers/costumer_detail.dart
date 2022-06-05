@@ -15,9 +15,12 @@ class CostumerDetailScreen extends StatefulWidget {
 class _CostumerDetailScreenState extends State<CostumerDetailScreen> {
   CostumerService costumerService = CostumerService();
   late Future<CostumerModel> costumer;
+  bool isUpdating = false;
 
+  final _typeController = TextEditingController();
   final _nameController = TextEditingController();
   final _cpfController = TextEditingController();
+  final _birthDateController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _zipcodeController = TextEditingController();
@@ -53,8 +56,10 @@ class _CostumerDetailScreenState extends State<CostumerDetailScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var costumer = snapshot.data;
-            _nameController.text = costumer!.name.toString();
+            _typeController.text = costumer!.type.toString();
+            _nameController.text = costumer.name.toString();
             _cpfController.text = costumer.cpf.toString();
+            _birthDateController.text = costumer.birthDate.toString();
             _phoneController.text = costumer.phone.toString();
             _emailController.text = costumer.email.toString();
             _zipcodeController.text = costumer.zipcode.toString();
@@ -95,6 +100,19 @@ class _CostumerDetailScreenState extends State<CostumerDetailScreen> {
                         Positioned(
                           top: 10,
                           bottom: 80,
+                          left: 10,
+                          right: 380,
+                          child: CustomTextField(
+                            controller: _typeController,
+                            label: "Tipo",
+                            decoration: InputDecoration(
+                              hintText: 'Ex: 1',
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 10,
+                          bottom: 80,
                           left: 420,
                           right: 10,
                           child: CustomTextField(
@@ -102,6 +120,19 @@ class _CostumerDetailScreenState extends State<CostumerDetailScreen> {
                             label: "CPF",
                             decoration: InputDecoration(
                               hintText: 'Ex: Robert Downey Junior',
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 10,
+                          bottom: 80,
+                          left: 420,
+                          right: 10,
+                          child: CustomTextField(
+                            controller: _birthDateController,
+                            label: "Data de Nascimento",
+                            decoration: InputDecoration(
+                              hintText: 'Ex: 10-10-2020',
                             ),
                           ),
                         ),
@@ -240,23 +271,74 @@ class _CostumerDetailScreenState extends State<CostumerDetailScreen> {
                           left: 280,
                           right: 280,
                           bottom: 25,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size.square(55),
-                              primary: const Color(0xffECDBC9),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/costumers');
-                            },
-                            child: const Text(
-                              "Salvar",
-                              style: TextStyle(
-                                  fontSize: 18, color: Color(0xff707070)),
-                            ),
-                          ),
+                          child: isUpdating
+                              ? CircularProgressIndicator()
+                              : ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size.square(55),
+                                    primary: const Color(0xffECDBC9),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(35),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    setState(() {
+                                      isUpdating = true;
+                                    });
+
+                                    if (_typeController.text != '' &&
+                                        _nameController.text != '' &&
+                                        _birthDateController != '' &&
+                                        _cpfController.text != '' &&
+                                        _phoneController.text != '' &&
+                                        _emailController.text != '' &&
+                                        _zipcodeController.text != '' &&
+                                        _streetController.text != '' &&
+                                        _numberController.text != '' &&
+                                        _districtController.text != '' &&
+                                        _complementController.text != '' &&
+                                        _cityController.text != '' &&
+                                        _stateController.text != '' &&
+                                        _observationController.text != '') {
+                                      CostumerModel costumerModel =
+                                          CostumerModel(
+                                              id: null,
+                                              name: _nameController.text,
+                                              type: int.parse(
+                                                  _typeController.text),
+                                              cpf: _cpfController.text,
+                                              birthDate:
+                                                  _birthDateController.text,
+                                              phone: _phoneController.text,
+                                              email: _emailController.text,
+                                              zipcode: _zipcodeController.text,
+                                              street: _streetController.text,
+                                              district:
+                                                  _districtController.text,
+                                              city: _cityController.text,
+                                              state: _stateController.text);
+
+                                      CostumerModel? costumerCreate =
+                                          await costumerService.updateCostumer(
+                                              costumer: costumerModel,
+                                              id: '/' + args.id);
+
+                                      if (costumerCreate != null) {
+                                        print(costumerCreate);
+                                      }
+                                    }
+                                    setState(() {
+                                      isUpdating = false;
+                                      Navigator.pushNamed(
+                                          context, '/costumers');
+                                    });
+                                  },
+                                  child: const Text(
+                                    "Salvar",
+                                    style: TextStyle(
+                                        fontSize: 18, color: Color(0xff707070)),
+                                  ),
+                                ),
                         )
                       ],
                     ),

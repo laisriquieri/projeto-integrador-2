@@ -54,4 +54,21 @@ class CostumerService {
 
     return costumerCreate;
   }
+
+  Future<CostumerModel?> updateCostumer(
+      {required CostumerModel costumer, required String id}) async {
+    CostumerModel? costumerCreate;
+    try {
+      Response response = await Dio().put(
+        url + pathUrl + id,
+        data: costumer.toJson(),
+      );
+      print('Usuário criado: ${response.data}');
+      costumerCreate = CostumerModel.fromJson(response.data);
+    } catch (e) {
+      print('Erro ao editar o usuário: $e');
+    }
+
+    return costumerCreate;
+  }
 }
